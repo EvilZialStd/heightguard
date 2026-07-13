@@ -1,0 +1,6 @@
+# This plugin was made Evil_ZialStd (Zendi)
+
+min-y: 10
+max-y: 128
+
+text-error: "You don`t break and build block this height."

@@ -1,0 +1,6 @@
+name: HeightGuard
+version: '${version}'
+
+main: me.evilzialstd.heightGuard.HeightGuard
+api-version: '1.21.4'
+load: POSTWORLD
