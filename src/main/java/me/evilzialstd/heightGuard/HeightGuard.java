@@ -16,13 +16,19 @@ public final class HeightGuard extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        getServer().getPluginManager().registerEvents(this, this);
 
         // Information from the config
         minY = getConfig().getInt("min-y");
         maxY = getConfig().getInt("max-y");
         textError = getConfig().getString("text-error");
 
+        if (minY > maxY) {
+            getLogger().severe("min-y cannot be greater than max-y.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        getServer().getPluginManager().registerEvents(this, this);
         getLogger().info("enabled.");
     }
 
@@ -40,6 +46,9 @@ public final class HeightGuard extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
+        if (event.getPlayer().hasPermission("heightguard.bypass")) {
+            return;
+        }
         if (isOutSideZone(event.getBlock())) {
             event.setCancelled(true);
             event.getPlayer().sendMessage(textError);
@@ -48,6 +57,9 @@ public final class HeightGuard extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlace(BlockPlaceEvent event) {
+        if (event.getPlayer().hasPermission("heightguard.bypass")) {
+            return;
+        }
         if (isOutSideZone(event.getBlock())) {
             event.setCancelled(true);
             event.getPlayer().sendMessage(textError);

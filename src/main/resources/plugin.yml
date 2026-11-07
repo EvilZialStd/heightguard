@@ -4,3 +4,8 @@ version: '${version}'
 main: me.evilzialstd.heightGuard.HeightGuard
 api-version: '1.21.4'
 load: POSTWORLD
+
+permissions:
+  heightguard.bypass:
+    description: Allows bypassing height restrictions.
+    default: false
